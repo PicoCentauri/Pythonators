@@ -4,6 +4,7 @@
 Created on Fri Feb 11 20:55:57 2022
  
 """
+
 # =============================================================================
 # At the very beginning we need to read all the files: demand, capacity
 # =============================================================================
@@ -12,7 +13,7 @@ Created on Fri Feb 11 20:55:57 2022
 
 
 # =============================================================================
-# In the begining the world was at a state of caos and the it came, Gonzalo, our saviour
+# Read cvs files
 # =============================================================================
 
 
