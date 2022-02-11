@@ -4,6 +4,9 @@
 Created on Fri Feb 11 20:55:57 2022
  
 """
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 # =============================================================================
 # At the very beginning we need to read all the files: demand, capacity
 # =============================================================================
