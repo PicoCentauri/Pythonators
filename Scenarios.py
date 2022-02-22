@@ -49,8 +49,6 @@ total_demand_2030 = 700 # TWh according to Agora Energiewende
 demand_max_2030 = demand_max_2020 * total_demand_2030 / total_demand_2020 # MWh
 
 
-#%% Scenario 1: All demand is covered by Wind and PV
-
 # Calculating renewable feedin (Installed capacity x Capacity factor)
 solarFeedIn = installedRenewables['PV'] * cfTimeSeries_2020['solar'].loc[date_2020]
 onShoreFeedIn = installedRenewables['Onshore'] * cfTimeSeries_2020['onshore'].loc[date_2020]
@@ -62,6 +60,8 @@ renewableFeedIn = renewableFeedIn.values[0]
 # Requiered energies to cover max demand
 need_RE_S1_req = demand_max_2030 / 24 - renewableFeedIn
 
+#%% Scenario 1: All demand is covered by Wind and PV
+
 # Installed capacity needed to cover max demand
 need_PV_S1_cap = need_RE_S1_req * (solarFeedIn / renewableFeedIn) / cfTimeSeries_2020['solar'].loc[date_2020]
 need_OnShore_S1_cap = need_RE_S1_req * onShoreFeedIn / renewableFeedIn / cfTimeSeries_2020['onshore'].loc[date_2020]
@@ -69,6 +69,24 @@ need_OffShore_S1_cap = need_RE_S1_req * offShoreFeedIn / renewableFeedIn / cfTim
 
 need_RE_S1_cap = need_PV_S1_cap + need_OnShore_S1_cap + need_OffShore_S1_cap
 need_RE_S1_cap = need_RE_S1_cap.values[0] / 10e5 # TWh
+
+
+#%% Scenario 2: Demand is covered by Wind and PV and gas as backup
+
+# Define max technical potential of Wind and PV in Germany
+
+# Extract natural gas power plants from powerplants database
+gas_PP = powerplants[powerplants.technology == "natural gas"]
+# define which gas power plants we keep and which ones we phase out
+
+
+#%% Scenario 3: Demand is covered by Wind and PV and storage
+
+# Define max technical potential of Wind and PV in Germany
+
+# Electrolysis capacity according to coalition agreement
+electrolysis_cap = 10 # GW
+
 
 
 #------- This is for the next Scenarios: NOT FINISHED --------------
