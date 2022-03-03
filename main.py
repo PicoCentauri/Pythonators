@@ -42,12 +42,15 @@ mtx = [[100, 80, 100, 150, 10, 1e-6],
        [50, 20, 90, 550, 40, 50],
        [20, 20, 30, 50, 50, 25]] #Emotions
 
-weights = [0.1, 0.2, 0.2, 0.3, 0.05, 0.15]
 
 # The first three alternatives are for maximization and the last one for minimization
-alternative_name = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
-criteria_name = ["Economic", "Sustaibility", "Usability", "Cost", "Packaging", "Emotions"]
-criteria_type = [max, max, max, min, min, max]
+weights = [0.1, 0.15, 0.3, 0.25, 0.2]
+
+criteria_names = ["infrastructure", "electricity_price", "energy_security", "CO2_emissions", "availability"]
+
+criteria_type = [min, min, max, min, max]
+
+alternatives_names = ["Scenario 1", "Scenario 2", "Scenario 3"]
 
 dm = mkdm(matrix = mtx,
           objectives = criteria_type,
