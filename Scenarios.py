@@ -4,7 +4,6 @@ Created on Mon Nov 29 08:55:45 2021
 
 @author: intgrdnb-06
 
-Global Input Data Module of the Merit Order Model
 """
 
 import pandas as pd
@@ -19,7 +18,7 @@ dataDirectory = f"{os.getcwd()}\data"
 
 
 # =============================================================================
-# Defining the Model Parameters and Boundaries and Importing the Input Data
+# Importing the Input Data
 # =============================================================================
 # Demand in MWh given for each hour of the year 2019 for Germany
 demandTimeSeries_2019 = pd.read_csv(f'{dataDirectory}/demand2019.csv', index_col=0, parse_dates = True)
@@ -27,18 +26,19 @@ demandTimeSeries_2019 = pd.read_csv(f'{dataDirectory}/demand2019.csv', index_col
 # Demand in MWh given for each hour of the year 2030 for Germany
 demandTimeSeries_2030 = pd.read_csv(f'{dataDirectory}/demand_2030.csv', index_col=0, parse_dates = True)
 
-"""
 
+"""
 ***After comparing capacity factors of 2015, 2019 and 2020 we decided to keep 2019 because they were similar to 2015 and 2020 were to small (... for some reason)****
 
 demandTimeSeries_2020 = pd.read_csv(f'{dataDirectory}/2020_demand_GER_1h.csv', index_col=0, parse_dates = True)
+"""
 
 # Renewable capacity factors in percent for each hour of the year 2020 for Germany
 cfTimeSeries_2020 = pd.read_csv(f'{dataDirectory}/2020_renewablesCF_GER_1h.csv', index_col=0, parse_dates = True)
 
 # Renewable capacity factors in percent for each hour of the year 2015 for Germany
 cfTimeSeries_2015 = pd.read_csv(f'{dataDirectory}/renewable_cf2015.csv', index_col=0, parse_dates = True)
-"""
+
 # Renewable capacity factors in percent for each hour of the year 2019 for Germany
 cfTimeSeries_2019 = pd.read_csv(f'{dataDirectory}/renewable_cf2019.csv', index_col=0, parse_dates = True)
 
@@ -65,7 +65,7 @@ plt.show()
 
 
 
-#%% Data for all Scenarios
+#%% Data preparation for all Scenarios
 cfTimeSeries_2019 = cfTimeSeries_2019.resample("D").mean()
 demandTimeSeries_2019 = demandTimeSeries_2019.resample("D").sum()
 demandTimeSeries_2030 = demandTimeSeries_2030.resample("D").sum()
@@ -97,7 +97,7 @@ renewableFeedIn = renewableFeedIn.values[0]
 # Requiered energies to cover max demand
 need_RE_S1_req = demand_max_2030 / 24 - renewableFeedIn
 
-#%% Scenario 1: All demand is covered by Wind and PV
+#%% Scenario 1: All demand is covered by Wind and PV in 2030
 
 # Installed capacity needed to cover max demand
 need_PV_S1_cap = need_RE_S1_req * (solarFeedIn / renewableFeedIn) / cfTimeSeries_2019['solar'].loc[date_2019]
@@ -105,19 +105,19 @@ need_OnShore_S1_cap = need_RE_S1_req * onShoreFeedIn / renewableFeedIn / cfTimeS
 need_OffShore_S1_cap = need_RE_S1_req * offShoreFeedIn / renewableFeedIn / cfTimeSeries_2019['offshore'].loc[date_2019]
 
 need_RE_S1_cap = need_PV_S1_cap + need_OnShore_S1_cap + need_OffShore_S1_cap
-need_RE_S1_cap = need_RE_S1_cap.values[0] / 10e5 # TW
+need_RE_S1_cap = need_RE_S1_cap.values[0] / 10e5 # conversion to TW
 
 
 #%% Scenario 2: Demand is covered by Wind and PV and gas as backup
 
 # Define max technical potential of Wind and PV in Germany
-wind onshore 2.9 TWh
+# wind onshore 2.9 TWh
 # Extract natural gas power plants from powerplants database
 gas_PP = powerplants[powerplants.technology == "natural gas"]
 # define which gas power plants we keep and which ones we phase out
 
 
-#%% Scenario 3: Demand is covered by Wind and PV and storage
+#%% Scenario 3: Demand is covered by Wind and PV and storage (H2 and battery?)
 
 # Define max technical potential of Wind and PV in Germany
 
@@ -133,7 +133,7 @@ phase_out = phase_out[phase_out.technology != "hard coal"]
 phase_out['cumulativeSum'] = phase_out.capacity.cumsum() + renewableFeedIn
 max_cap = phase_out["cumulativeSum"].max()
 need_RE = demand_max - max_cap
-# Remember to divide by capaccity factor and find shares of each RE
+# Remember to divide by capacity factor and find shares of each RE
 print(need_RE)
 
 
