@@ -32,13 +32,13 @@ demandTimeSeries_2030 = pd.read_csv(f'{dataDirectory}/demand_2030.csv', index_co
 ***After comparing capacity factors of 2015, 2019 and 2020 we decided to keep 2019 because they were similar to 2015 and 2020 were to small (... for some reason)****
 
 demandTimeSeries_2020 = pd.read_csv(f'{dataDirectory}/2020_demand_GER_1h.csv', index_col=0, parse_dates = True)
-
+"""
 # Renewable capacity factors in percent for each hour of the year 2020 for Germany
 cfTimeSeries_2020 = pd.read_csv(f'{dataDirectory}/2020_renewablesCF_GER_1h.csv', index_col=0, parse_dates = True)
 
 # Renewable capacity factors in percent for each hour of the year 2015 for Germany
 cfTimeSeries_2015 = pd.read_csv(f'{dataDirectory}/renewable_cf2015.csv', index_col=0, parse_dates = True)
-"""
+
 # Renewable capacity factors in percent for each hour of the year 2019 for Germany
 cfTimeSeries_2019 = pd.read_csv(f'{dataDirectory}/renewable_cf2019.csv', index_col=0, parse_dates = True)
 
@@ -81,7 +81,7 @@ demand_max_2030 = demandTimeSeries_2030["Demand_2030"].max() # MWh
 
 """
 If we have time we should calculate everything hourly and not taking the worst demand. Because this we are assuming there is some solar during the night.
-So the way would be to caclulate renewableFeedIn hourly, do the same calculations but hourly and when dividing by capacity factors assing cero in the errors.
+So the way would be to caclulate renewableFeedIn hourly, do the same calculations but hourly and when dividing by capacity factors equal to zero, we should get zero.
 """
 
 
