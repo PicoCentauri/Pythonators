@@ -14,10 +14,10 @@ from pyomo.opt import SolverFactory
 import matplotlib.pyplot as plt
 
 # %%
-capacityFactors = pd.read_csv('data/renewable_cf2019.csv', index_col=0, parse_dates = True)
-other_ren_gen = pd.read_csv('data/2020_other_ren_gen_1h.csv', index_col=0, parse_dates = True)
+capacityFactors = pd.read_csv('input/renewable_cf2019.csv', index_col=0, parse_dates = True)
+other_ren_gen = pd.read_csv('input/2020_other_ren_gen_1h.csv', index_col=0, parse_dates = True)
 # Demand data for 2030
-data = pd.read_csv('data/demand_2030.csv', index_col=0, parse_dates = True) # in MWh
+data = pd.read_csv('input/demand_2030.csv', index_col=0, parse_dates = True) # in MWh
 
 # Capacities for 2021
 installedSolarCapacity = 58980 #MW
