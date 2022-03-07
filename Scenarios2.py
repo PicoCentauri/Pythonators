@@ -44,7 +44,7 @@ def RenShareTargetOpt(data, capacityFactors, renewableShareTarget, installedStor
     model.windOnshoreCapacity = pyo.Var(domain=pyo.NonNegativeReals, bounds = (0.0, 930e3)) # Potential for best locations
     model.windOffshoreCapacity = pyo.Var(domain=pyo.NonNegativeReals, bounds = (0.0, 60e3)) # Between 50 and 70 GW
     
-    model.storageCapacity = pyo.Var(domain=pyo.NonNegativeReals)
+    model.storageCapacity = pyo.Var(domain=pyo.NonNegativeReals, bounds = (0.0, 246e3)) # in MWh
     model.SOC = pyo.Var(model.i, domain=pyo.NonNegativeReals)
     model.charge = pyo.Var(model.i, domain=pyo.NonNegativeReals)
     model.discharge = pyo.Var(model.i, domain=pyo.NonNegativeReals)
@@ -104,7 +104,7 @@ def RenShareTargetOpt(data, capacityFactors, renewableShareTarget, installedStor
     model.batteryCapacity_rule = pyo.Constraint(model.i, rule = batteryCapacity_rule)
     model.batteryPower_rule = pyo.Constraint(model.i, rule = batteryPower_rule)
 
-    #model.curtailment_rule = pyo.Constraint(rule=curtailment_rule)
+    model.curtailment_rule = pyo.Constraint(rule=curtailment_rule)
     
     def ObjRule(model):
         return model.investmentCost
@@ -132,8 +132,8 @@ def get_values(model):
     return renShare, convGen, curtailed, renGen 
 
 # %%
-installedStorageCapacity = 580e3 # in MW
-storagePower = 10.8e3 #in MW # Look for that later
+installedStorageCapacity = 1.22e3 # in MWh
+storagePower = 0.42e3 #in MW
 renewableShareTarget = 1
 
 model = RenShareTargetOpt(data = data,
@@ -167,7 +167,7 @@ def RenShareTargetOpt(data, capacityFactors, installedStorageCapacity, storagePo
     model.windOnshoreCapacity = pyo.Var(domain=pyo.NonNegativeReals, bounds = (0.0, 930e3)) # Potential for best locations
     model.windOffshoreCapacity = pyo.Var(domain=pyo.NonNegativeReals, bounds = (0.0, 60e3)) # Between 50 and 70 GW
     
-    model.storageCapacity = pyo.Var(domain=pyo.NonNegativeReals)
+    model.storageCapacity = pyo.Var(domain=pyo.NonNegativeReals, bounds = (0.0, 800e3)) # in MWh
     model.SOC = pyo.Var(model.i, domain=pyo.NonNegativeReals)
     model.charge = pyo.Var(model.i, domain=pyo.NonNegativeReals)
     model.discharge = pyo.Var(model.i, domain=pyo.NonNegativeReals)
@@ -227,12 +227,12 @@ def RenShareTargetOpt(data, capacityFactors, installedStorageCapacity, storagePo
     model.batteryCapacity_rule = pyo.Constraint(model.i, rule = batteryCapacity_rule)
     model.batteryPower_rule = pyo.Constraint(model.i, rule = batteryPower_rule)
 
-    #model.curtailment_rule = pyo.Constraint(rule=curtailment_rule)
+    model.curtailment_rule = pyo.Constraint(rule=curtailment_rule)
     
     def ObjRule(model):
-        return model.investmentCost
+        return pyo.quicksum(model.renShare[i] for i in model.i)
      
-    model.obj = pyo.Objective(rule = ObjRule, sense = pyo.minimize)
+    model.obj = pyo.Objective(rule = ObjRule, sense = pyo.maximize)
     
     opt = SolverFactory("glpk")
     
@@ -255,8 +255,8 @@ def get_values(model):
     return renShare, convGen, curtailed, renGen 
 
 # %%
-installedStorageCapacity = 580e3 # in MW
-storagePower = 10.8e3 #in MW # Look for that later
+installedStorageCapacity = 1.22e3 # in MWh
+storagePower = 0.42e3 #in MW
 #renewableShareTarget = 0.8
 
 model = RenShareTargetOpt(data = data,
