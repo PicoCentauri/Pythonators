@@ -33,7 +33,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run the optimization
-      run: python Scenarios2.py
+      run: python phaseout/main.py
 
     # Upload output
     - name: Save output
