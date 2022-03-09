@@ -33,7 +33,7 @@ def RenShareTargetOpt(data,
         domain=pyo.NonNegativeReals, bounds=(0.0, 60e3))  # Between 50 and 70 GW
 
     model.storageCapacity = pyo.Var(
-        domain=pyo.NonNegativeReals, bounds=(0.0, 246e3))  # in MWh
+        domain=pyo.NonNegativeReals, bounds=(0.0, 246e3))  # in MWh 297.63e3 (with Hydro)
     model.SOC = pyo.Var(model.i, domain=pyo.NonNegativeReals)
     model.charge = pyo.Var(model.i, domain=pyo.NonNegativeReals)
     model.discharge = pyo.Var(model.i, domain=pyo.NonNegativeReals)
@@ -71,7 +71,7 @@ def RenShareTargetOpt(data,
         return model.renShare[i] == 1 - model.conventionalGen[i] / data['demand'].iat[i]
 
     def renShareTarget_rule(model):
-        return (renewableShareTarget, pyo.summation(model.renShare)/len(data), renewableShareTarget)
+        return (renewableShareTarget-0.01, pyo.summation(model.renShare)/len(data), renewableShareTarget+0.01)
 
     def investmentCost_rule(model):
         return model.investmentCost == solarCost*model.solarCapacity + windOnshoreCost*model.windOnshoreCapacity\
