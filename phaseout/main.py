@@ -10,6 +10,7 @@ import pandas as pd  # import pandas to work with dataframes
 
 import pv_wind_storage
 import gas
+import nuclear
 
 # %%
 capacityFactors = pd.read_csv(
@@ -63,6 +64,44 @@ gas.run(data=data,
         installedOnWindCapacity=installedOnWindCapacity,
         installedOffWindCapacity=installedOffWindCapacity,
         installedGasCapacity=installedGasCapacity,
+        other_ren_gen=other_ren_gen,
+        installedStorageCapacity=1.22e3,  # in MWh
+        storagePower=0.42e3,  # in MW
+        initialSOC=initialSOC,
+        chargingEfficiency=chargingEfficiency,
+        dischargingEfficiency=dischargingEfficiency,
+        solarCost=solarCost,
+        windOnshoreCost=windOnshoreCost,
+        windOffshoreCost=windOffshoreCost,
+        storageCost=storageCost)
+
+# %% Run Scenario 3 (Nuclear 2010)
+nuclear.run(data=data,
+        capacityFactors=capacityFactors,
+        renewableShareTarget=0.8,
+        installedSolarCapacity=installedSolarCapacity,
+        installedOnWindCapacity=installedOnWindCapacity,
+        installedOffWindCapacity=installedOffWindCapacity,
+        installedNuclearCapacity=21.5e3,  # in MW (source: energycharts)
+        other_ren_gen=other_ren_gen,
+        installedStorageCapacity=1.22e3,  # in MWh
+        storagePower=0.42e3,  # in MW
+        initialSOC=initialSOC,
+        chargingEfficiency=chargingEfficiency,
+        dischargingEfficiency=dischargingEfficiency,
+        solarCost=solarCost,
+        windOnshoreCost=windOnshoreCost,
+        windOffshoreCost=windOffshoreCost,
+        storageCost=storageCost)
+
+# %% Run Scenario 4 (Nuclear 2016)
+nuclear.run(data=data,
+        capacityFactors=capacityFactors,
+        renewableShareTarget=0.8,
+        installedSolarCapacity=installedSolarCapacity,
+        installedOnWindCapacity=installedOnWindCapacity,
+        installedOffWindCapacity=installedOffWindCapacity,
+        installedNuclearCapacity=10.8e3,  # in MW (source: energycharts)
         other_ren_gen=other_ren_gen,
         installedStorageCapacity=1.22e3,  # in MWh
         storagePower=0.42e3,  # in MW
