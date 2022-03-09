@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Mar  5 16:34:07 2022
 
-@author: moham
+Python Project: Scenarios for 2030
+
+Student 1 name: Mohamed Eltoukhy, 5170372
+Student 2 name: Anna Lebowsky, 5143788
+
 """
 
 import numpy as np
@@ -10,8 +13,10 @@ import pandas as pd  # import pandas to work with dataframes
 
 import pv_wind_storage
 import gas
-import nuclear
+import nuclear2010
 import nuclear2016
+
+from plots import plot_demand
 
 # %%
 capacityFactors = pd.read_csv(
@@ -59,24 +64,24 @@ initialSOC = 0.5  # initial State of Charge (ratio from capacity)
 #                     storageCost=storageCost)
 
 # %% Run Scenario 2 (Gas)
-gas.run(data=data,
-        capacityFactors=capacityFactors,
-        renewableShareTarget=0.8,
-        installedSolarCapacity=installedSolarCapacity,
-        installedOnWindCapacity=installedOnWindCapacity,
-        installedOffWindCapacity=installedOffWindCapacity,
-        installedGasCapacity=installedGasCapacity,
-        other_ren_gen=other_ren_gen,
-        installedStorageCapacity=46.35e3,  # in MWh
-        storagePower=10.38e3,  # in MW
-        initialSOC=initialSOC,
-        chargingEfficiency=chargingEfficiency,
-        dischargingEfficiency=dischargingEfficiency,
-        solarCost=solarCost,
-        windOnshoreCost=windOnshoreCost,
-        windOffshoreCost=windOffshoreCost,
-        storageCost=storageCost,
-        gasCost=gasCost)
+# gas.run(data=data,
+#         capacityFactors=capacityFactors,
+#         renewableShareTarget=0.8,
+#         installedSolarCapacity=installedSolarCapacity,
+#         installedOnWindCapacity=installedOnWindCapacity,
+#         installedOffWindCapacity=installedOffWindCapacity,
+#         installedGasCapacity=installedGasCapacity,
+#         other_ren_gen=other_ren_gen,
+#         installedStorageCapacity=46.35e3,  # in MWh
+#         storagePower=10.38e3,  # in MW
+#         initialSOC=initialSOC,
+#         chargingEfficiency=chargingEfficiency,
+#         dischargingEfficiency=dischargingEfficiency,
+#         solarCost=solarCost,
+#         windOnshoreCost=windOnshoreCost,
+#         windOffshoreCost=windOffshoreCost,
+#         storageCost=storageCost,
+#         gasCost=gasCost)
 
 # %% Run Scenario 3 (Nuclear 2010)
 # nuclear.run(data=data,
@@ -117,3 +122,10 @@ gas.run(data=data,
 #         windOffshoreCost=windOffshoreCost,
 #         storageCost=storageCost,
 #         gasCost=gasCost)
+
+#%%
+# =============================================================================
+# Plotting results
+# =============================================================================
+
+plot_demand(data=data)
