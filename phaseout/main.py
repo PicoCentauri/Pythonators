@@ -11,6 +11,7 @@ import pandas as pd  # import pandas to work with dataframes
 import pv_wind_storage
 import gas
 import nuclear
+import nuclear2016
 
 # %%
 capacityFactors = pd.read_csv(
@@ -40,60 +41,62 @@ dischargingEfficiency = 0.92
 initialSOC = 0.5  # initial State of Charge (ratio from capacity)
 
 # %% Run Scenario 1 (PV, Wind, Storage)
-pv_wind_storage.run(data=data,
-                    capacityFactors=capacityFactors,
-                    renewableShareTarget=1,
-                    installedSolarCapacity=installedSolarCapacity,
-                    installedOnWindCapacity=installedOnWindCapacity,
-                    installedOffWindCapacity=installedOffWindCapacity,
-                    other_ren_gen=other_ren_gen,
-                    installedStorageCapacity=46.35e3,  # in MWh energycharts 2022
-                    storagePower=10.38e3,  # in MW energycharts 2022
-                    initialSOC=initialSOC,
-                    chargingEfficiency=chargingEfficiency,
-                    dischargingEfficiency=dischargingEfficiency,
-                    solarCost=solarCost,
-                    windOnshoreCost=windOnshoreCost,
-                    windOffshoreCost=windOffshoreCost,
-                    storageCost=storageCost)
+# pv_wind_storage.run(data=data,
+#                     capacityFactors=capacityFactors,
+#                     renewableShareTarget=0.85,
+#                     installedSolarCapacity=installedSolarCapacity,
+#                     installedOnWindCapacity=installedOnWindCapacity,
+#                     installedOffWindCapacity=installedOffWindCapacity,
+#                     other_ren_gen=other_ren_gen,
+#                     installedStorageCapacity=46.35e3,  # in MWh energycharts 2022
+#                     storagePower=10.38e3,  # in MW energycharts 2022
+#                     initialSOC=initialSOC,
+#                     chargingEfficiency=chargingEfficiency,
+#                     dischargingEfficiency=dischargingEfficiency,
+#                     solarCost=solarCost,
+#                     windOnshoreCost=windOnshoreCost,
+#                     windOffshoreCost=windOffshoreCost,
+#                     storageCost=storageCost)
 
-# # %% Run Scenario 2 (Gas)
-# gas.run(data=data,
-#         capacityFactors=capacityFactors,
-#         renewableShareTarget=0.8,
-#         installedSolarCapacity=installedSolarCapacity,
-#         installedOnWindCapacity=installedOnWindCapacity,
-#         installedOffWindCapacity=installedOffWindCapacity,
-#         installedGasCapacity=installedGasCapacity,
-#         other_ren_gen=other_ren_gen,
-#         installedStorageCapacity=1.22e3,  # in MWh
-#         storagePower=0.42e3,  # in MW
-#         initialSOC=initialSOC,
-#         chargingEfficiency=chargingEfficiency,
-#         dischargingEfficiency=dischargingEfficiency,
-#         solarCost=solarCost,
-#         windOnshoreCost=windOnshoreCost,
-#         windOffshoreCost=windOffshoreCost,
-#         storageCost=storageCost)
+# %% Run Scenario 2 (Gas)
+gas.run(data=data,
+        capacityFactors=capacityFactors,
+        renewableShareTarget=0.8,
+        installedSolarCapacity=installedSolarCapacity,
+        installedOnWindCapacity=installedOnWindCapacity,
+        installedOffWindCapacity=installedOffWindCapacity,
+        installedGasCapacity=installedGasCapacity,
+        other_ren_gen=other_ren_gen,
+        installedStorageCapacity=46.35e3,  # in MWh
+        storagePower=10.38e3,  # in MW
+        initialSOC=initialSOC,
+        chargingEfficiency=chargingEfficiency,
+        dischargingEfficiency=dischargingEfficiency,
+        solarCost=solarCost,
+        windOnshoreCost=windOnshoreCost,
+        windOffshoreCost=windOffshoreCost,
+        storageCost=storageCost,
+        gasCost=gasCost)
 
-# # %% Run Scenario 3 (Nuclear 2010)
+# %% Run Scenario 3 (Nuclear 2010)
 # nuclear.run(data=data,
 #         capacityFactors=capacityFactors,
 #         renewableShareTarget=0.8,
 #         installedSolarCapacity=installedSolarCapacity,
 #         installedOnWindCapacity=installedOnWindCapacity,
 #         installedOffWindCapacity=installedOffWindCapacity,
-#         installedNuclearCapacity=21.5e3,  # in MW (source: energycharts)
+#         installedGasCapacity=installedGasCapacity,  # in MW (source: energycharts)
 #         other_ren_gen=other_ren_gen,
-#         installedStorageCapacity=1.22e3,  # in MWh
-#         storagePower=0.42e3,  # in MW
+#         installedStorageCapacity=46.35e3,  # in MWh
+#         storagePower=10.38e3,  # in MW
 #         initialSOC=initialSOC,
 #         chargingEfficiency=chargingEfficiency,
 #         dischargingEfficiency=dischargingEfficiency,
 #         solarCost=solarCost,
 #         windOnshoreCost=windOnshoreCost,
 #         windOffshoreCost=windOffshoreCost,
-#         storageCost=storageCost)
+#         storageCost=storageCost,
+#         gasCost=gasCost)
 
 # # %% Run Scenario 4 (Nuclear 2016)
 # nuclear.run(data=data,
@@ -102,14 +105,15 @@ pv_wind_storage.run(data=data,
 #         installedSolarCapacity=installedSolarCapacity,
 #         installedOnWindCapacity=installedOnWindCapacity,
 #         installedOffWindCapacity=installedOffWindCapacity,
-#         installedNuclearCapacity=10.8e3,  # in MW (source: energycharts)
+#         installedGasCapacity=installedGasCapacity,  # in MW (source: energycharts)
 #         other_ren_gen=other_ren_gen,
-#         installedStorageCapacity=1.22e3,  # in MWh
-#         storagePower=0.42e3,  # in MW
+#         installedStorageCapacity=46.35e3,  # in MWh
+#         storagePower=10.38e3,  # in MW
 #         initialSOC=initialSOC,
 #         chargingEfficiency=chargingEfficiency,
 #         dischargingEfficiency=dischargingEfficiency,
 #         solarCost=solarCost,
 #         windOnshoreCost=windOnshoreCost,
 #         windOffshoreCost=windOffshoreCost,
-#         storageCost=storageCost)
+#         storageCost=storageCost,
+#         gasCost=gasCost)

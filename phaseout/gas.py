@@ -21,7 +21,8 @@ def RenShareTargetOpt(data,
                       solarCost,
                       windOnshoreCost,
                       windOffshoreCost,
-                      storageCost):
+                      storageCost,
+                      gasCost):
     model = pyo.ConcreteModel()
 
     model.i = pyo.RangeSet(0, len(data)-1)
@@ -58,7 +59,7 @@ def RenShareTargetOpt(data,
             + other_ren_gen.iloc[i].sum()
     
     def gasGen_rule(model, i):
-        return model.gasGen[i] == (model.gasCapacity + installedGasCapacity)
+        return model.gasGen[i] <= (model.gasCapacity + installedGasCapacity)
 
     def SOC_rule(model, i):
         if i == 0:
@@ -80,7 +81,7 @@ def RenShareTargetOpt(data,
 
     def investmentCost_rule(model):
         return model.investmentCost == solarCost*model.solarCapacity + windOnshoreCost*model.windOnshoreCapacity\
-            + windOffshoreCost*model.windOffshoreCapacity + storageCost*model.storageCapacity
+            + windOffshoreCost*model.windOffshoreCapacity + storageCost*model.storageCapacity + gasCost*model.gasCapacity
 
     def curtailment_rule(model):
         return pyo.summation(model.curtailment) <= 0.2*pyo.summation(model.renGen)
@@ -141,7 +142,8 @@ def run(data,
         solarCost,
         windOnshoreCost,
         windOffshoreCost,
-        storageCost):
+        storageCost,
+        gasCost):
 
     model = RenShareTargetOpt(data=data,
                               capacityFactors=capacityFactors,
@@ -159,7 +161,8 @@ def run(data,
                               solarCost=solarCost,
                               windOnshoreCost=windOnshoreCost,
                               windOffshoreCost=windOffshoreCost,
-                              storageCost=storageCost)
+                              storageCost=storageCost,
+                              gasCost=gasCost)
 
     renShare, curtailed, renGen, gasGen = get_values(model,data)
     curtailedPercentage = sum(curtailed) / sum(renGen) * 100

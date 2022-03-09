@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+"""
+Created on Wed Mar  9 21:52:32 2022
+
+@author: moham
+"""
 
 import numpy as np
 import pyomo.environ as pyo
@@ -42,7 +47,7 @@ def RenShareTargetOpt(data,
     model.discharge = pyo.Var(model.i, domain=pyo.NonNegativeReals)
 
     model.renGen = pyo.Var(model.i, domain=pyo.NonNegativeReals)
-    model.nuclearGen = pyo.Var(model.i, domain=pyo.NonNegativeReals, bounds=(0.0, 21.5e3)) # in MWh
+    model.nuclearGen = pyo.Var(model.i, domain=pyo.NonNegativeReals, bounds=(0.0, 10.8e3)) # in MWh
     model.gasGen = pyo.Var(model.i, domain=pyo.NonNegativeReals)
 
     model.renShare = pyo.Var(model.i, domain=pyo.NonNegativeReals)
