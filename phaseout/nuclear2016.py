@@ -134,45 +134,11 @@ def get_values(model, data):
     return renShare, curtailed, renGen, nuclearGen, gasGen
 
 # %%
-def run(data,
-        capacityFactors,
-        renewableShareTarget,
-        installedSolarCapacity,
-        installedOnWindCapacity,
-        installedOffWindCapacity,
-        installedGasCapacity,
-        other_ren_gen,
-        installedStorageCapacity,
-        storagePower,
-        initialSOC,
-        chargingEfficiency,
-        dischargingEfficiency,
-        solarCost,
-        windOnshoreCost,
-        windOffshoreCost,
-        storageCost,
-        gasCost):
+def run(**params):
 
-    model = RenShareTargetOpt(data=data,
-                              capacityFactors=capacityFactors,
-                              renewableShareTarget=renewableShareTarget,
-                              installedSolarCapacity=installedSolarCapacity,
-                              installedOnWindCapacity=installedOnWindCapacity,
-                              installedOffWindCapacity=installedOffWindCapacity,
-                              installedGasCapacity=installedGasCapacity,
-                              other_ren_gen=other_ren_gen,
-                              installedStorageCapacity=installedStorageCapacity,
-                              storagePower=storagePower,
-                              initialSOC=initialSOC,
-                              chargingEfficiency=chargingEfficiency,
-                              dischargingEfficiency=dischargingEfficiency,
-                              solarCost=solarCost,
-                              windOnshoreCost=windOnshoreCost,
-                              windOffshoreCost=windOffshoreCost,
-                              storageCost=storageCost,
-                              gasCost=gasCost)
+    model = RenShareTargetOpt(**params)
 
-    renShare, curtailed, renGen, nuclearGen, gasGen = get_values(model,data)
+    renShare, curtailed, renGen, nuclearGen, gasGen = get_values(model, params["data"])
     curtailedPercentage = sum(curtailed) / sum(renGen) * 100
 
     investment = round(model.investmentCost.value/1000, 3)

@@ -37,7 +37,7 @@ jobs:
 
     # Upload output
     - name: Save output
-      if: always() ## Alwaystry to upload data even if code fails somewhere
+      if: always() # Always try to upload data even if code fails somewhere
       uses: actions/upload-artifact@v2
       with:
         name: output

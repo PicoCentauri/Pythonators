@@ -34,7 +34,7 @@ def plot_demand(data):
 #plot_demand()
 
 @mpltex.acs_decorator
-def plot_investments():
+def plot_investments(data, bars, investments):
     fig, ax = plt.subplots()
 
     ax.plot(data.index, data.demand)
