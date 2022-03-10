@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 # -*- Mode: python; tab-width: 4; indent-tabs-mode:nil; coding:utf-8 -*-
 """
-Plot functions.
+
+Plot results.
+
+Student 1 name: Mohamed Eltoukhy, 5170372
+Student 2 name: Anna Lebowsky, 5143788
 
 """
 import numpy as np
