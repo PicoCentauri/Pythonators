@@ -21,7 +21,7 @@ from plots import plot_demand, plot_investments
 
 # Hour step for the optimization. Increase for sparse the data for faster 
 # optimization. For DH=1 the whole data is taken into account
-DH = 100
+DH = 10
 
 params = dict(
     # Demand data for 2030 (source: nat. comm. paper)
