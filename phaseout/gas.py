@@ -143,7 +143,7 @@ def run(**params):
 
     investment = round(model.investmentCost.value/1000, 3)
 
-    print("Results for Scenario 2:")
+    print("Results for Scenario Gas:")
     print("Renewable share:", (np.average(renShare)))
     print("Investment cost:", investment, "billion €")
     print("Curtailment (%):", curtailedPercentage)
@@ -157,3 +157,5 @@ def run(**params):
         model.gasCapacity.value/1000, 2))
     print("Extra storage capacity GWh:", round(
         model.storageCapacity.value/1000, 2))
+
+    return investment

@@ -30,7 +30,8 @@ def RenShareTargetOpt(data,
                       windOnshoreCost,
                       windOffshoreCost,
                       storageCost,
-                      gasCost):
+                      gasCost,
+                      nuclearGen_upper_bound):
     model = pyo.ConcreteModel()
 
     model.i = pyo.RangeSet(0, len(data)-1)
@@ -50,7 +51,7 @@ def RenShareTargetOpt(data,
     model.discharge = pyo.Var(model.i, domain=pyo.NonNegativeReals)
 
     model.renGen = pyo.Var(model.i, domain=pyo.NonNegativeReals)
-    model.nuclearGen = pyo.Var(model.i, domain=pyo.NonNegativeReals, bounds=(0.0, 21.5e3)) # in MWh
+    model.nuclearGen = pyo.Var(model.i, domain=pyo.NonNegativeReals, bounds=(0.0, nuclearGen_upper_bound))
     model.gasGen = pyo.Var(model.i, domain=pyo.NonNegativeReals)
 
     model.renShare = pyo.Var(model.i, domain=pyo.NonNegativeReals)
@@ -146,11 +147,11 @@ def run(**params):
 
     investment = round(model.investmentCost.value/1000, 3)
 
+    print("Results for Scenario Nuclear:")
     print("Renewable share:", (np.average(renShare)))
     print("Investment cost:", investment, "billion €")
     print("Curtailment (%):", curtailedPercentage)
 
-    print("Results for Scenario 3:")
     print("Extra solar capacity GW:", round(model.solarCapacity.value/1000, 2))
     print("Extra wind onshore capacity GW:", round(
         model.windOnshoreCapacity.value/1000, 2))
@@ -160,3 +161,5 @@ def run(**params):
         model.gasCapacity.value/1000, 2))
     print("Extra storage capacity GWh:", round(
         model.storageCapacity.value/1000, 2))
+
+    return investment

@@ -6,14 +6,11 @@ Aim: Find the best scenario how to replace the coal power plants in Germany unti
 
 For running the code install the requirements
 
-```bash
-pip3 install -r requirements.txt
-```
+    pip3 install -r requirements.txt
 
-and run the code with
 
-```python
-python3 pythonators/Scenarios.py
-```
+and run the optimization with
+
+    python3 phaseout/main.py
 
 Resulting plots are stored in the [output](output) folder.
