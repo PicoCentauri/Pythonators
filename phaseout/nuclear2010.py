@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+"""
+
+Scenario 3
+
+Student 1 name: Mohamed Eltoukhy, 5170372
+Student 2 name: Anna Lebowsky, 5143788
+
+"""
 
 import numpy as np
 import pyomo.environ as pyo
@@ -176,6 +184,7 @@ def run(data,
     print("Investment cost:", investment, "billion €")
     print("Curtailment (%):", curtailedPercentage)
 
+    print("Results for Scenario 3:")
     print("Extra solar capacity GW:", round(model.solarCapacity.value/1000, 2))
     print("Extra wind onshore capacity GW:", round(
         model.windOnshoreCapacity.value/1000, 2))

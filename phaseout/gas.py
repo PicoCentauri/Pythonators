@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+"""
+
+Scenario 2
+
+Student 1 name: Mohamed Eltoukhy, 5170372
+Student 2 name: Anna Lebowsky, 5143788
+
+"""
 
 import numpy as np
 import pyomo.environ as pyo
@@ -169,6 +177,7 @@ def run(data,
 
     investment = round(model.investmentCost.value/1000, 3)
 
+    print("Results for Scenario 2:")
     print("Renewable share:", (np.average(renShare)))
     print("Investment cost:", investment, "billion €")
     print("Curtailment (%):", curtailedPercentage)

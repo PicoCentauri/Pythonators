@@ -84,7 +84,7 @@ initialSOC = 0.5  # initial State of Charge (ratio from capacity)
 #         gasCost=gasCost)
 
 # %% Run Scenario 3 (Nuclear 2010)
-# nuclear.run(data=data,
+# nuclear2010.run(data=data,
 #         capacityFactors=capacityFactors,
 #         renewableShareTarget=0.8,
 #         installedSolarCapacity=installedSolarCapacity,
@@ -104,24 +104,24 @@ initialSOC = 0.5  # initial State of Charge (ratio from capacity)
 #         gasCost=gasCost)
 
 # # %% Run Scenario 4 (Nuclear 2016)
-# nuclear.run(data=data,
-#         capacityFactors=capacityFactors,
-#         renewableShareTarget=0.8,
-#         installedSolarCapacity=installedSolarCapacity,
-#         installedOnWindCapacity=installedOnWindCapacity,
-#         installedOffWindCapacity=installedOffWindCapacity,
-#         installedGasCapacity=installedGasCapacity,  # in MW (source: energycharts)
-#         other_ren_gen=other_ren_gen,
-#         installedStorageCapacity=46.35e3,  # in MWh
-#         storagePower=10.38e3,  # in MW
-#         initialSOC=initialSOC,
-#         chargingEfficiency=chargingEfficiency,
-#         dischargingEfficiency=dischargingEfficiency,
-#         solarCost=solarCost,
-#         windOnshoreCost=windOnshoreCost,
-#         windOffshoreCost=windOffshoreCost,
-#         storageCost=storageCost,
-#         gasCost=gasCost)
+nuclear2016.run(data=data,
+        capacityFactors=capacityFactors,
+        renewableShareTarget=0.8,
+        installedSolarCapacity=installedSolarCapacity,
+        installedOnWindCapacity=installedOnWindCapacity,
+        installedOffWindCapacity=installedOffWindCapacity,
+        installedGasCapacity=installedGasCapacity,  # in MW (source: energycharts)
+        other_ren_gen=other_ren_gen,
+        installedStorageCapacity=46.35e3,  # in MWh
+        storagePower=10.38e3,  # in MW
+        initialSOC=initialSOC,
+        chargingEfficiency=chargingEfficiency,
+        dischargingEfficiency=dischargingEfficiency,
+        solarCost=solarCost,
+        windOnshoreCost=windOnshoreCost,
+        windOffshoreCost=windOffshoreCost,
+        storageCost=storageCost,
+        gasCost=gasCost)
 
 #%%
 # =============================================================================
